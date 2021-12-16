@@ -1,0 +1,65 @@
+const path = require("path");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require("webpack");
+
+module.exports = {
+  mode: process.env.NODE_ENV, // 这里的值在 package.json 中的 scripts 中的打包命令中通过 cross-env 来指定了
+  target: "web",
+  entry: "./examples/main.js",
+  output: {
+    path: path.resolve(process.cwd(), "dist"),
+    filename: "bundle.js",
+  },
+  devServer: {
+    // // contentBase 改成 static
+    static: "../dist",
+    hot: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+        options: {
+          compilerOptions: {
+            preserveWhitespace: false,
+          },
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              esModule: false, //“[object Module]”问题
+            },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      title: "Development",
+      // favicon: "./public/favicon.ico",
+      template: "public/index.html",
+      filename: "index.html",
+      inject: true,
+    }),
+    // 开启全局的模块热替换(HMR)
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+  optimization: {
+    moduleIds: "named",
+  },
+};
