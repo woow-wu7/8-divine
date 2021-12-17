@@ -13,9 +13,10 @@ module.exports = {
     filename: "bundle.js",
   },
   devServer: {
-    // // contentBase 改成 static
+    // contentBase 改成 static
     static: "../dist",
     hot: true,
+    open: true,
   },
   module: {
     rules: [

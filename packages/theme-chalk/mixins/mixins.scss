@@ -1,0 +1,75 @@
+@import "function";
+@import "../common/var";
+
+/* BEM
+ -------------------------- */
+@mixin b($block) {
+  $B: $namespace + "-" + $block !global;
+
+  .#{$B} {
+    // 这里其实就是引用了 $B 变量做为class名 ---> el-$block，比如 el-row
+    @content;
+  }
+  // $B
+  // 1. 这里的 $namespace = el
+  // 2. $block 是参数，表示BEM中的block
+
+  // @content 是 @include 花括号中的值
+
+  // #{$B} 是插值语句
+  // - 插值语句可以在 选择器 或者 属性名 中使用 变量
+}
+
+@mixin m($modifier) {
+  $selector: &;
+  $currentSelector: "";
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + & + $modifier-separator + $unit + ","};
+  }
+  // $modifier-separator: '--';
+  // $namespace: 'el';
+  // $element-separator: '__';
+  // $state-prefix: 'is-';
+  //    & --flex,
+
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}
+
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+  // 1
+  // $state-prefix: 'is-';
+}
+
+
+
+
+/* Break-points
+ -------------------------- */
+ @mixin res($key, $map: $--breakpoints) {
+  // 循环断点Map，如果存在则返回
+  @if map-has-key($map, $key) {
+    @if $key=='sm-only'or $key=='md-only'or $key=='lg-only' {
+      // 判定特定定义处理字符串参数值问题
+      @media only screen and #{unquote(map-get($map, $key))} {
+        @content;
+      }
+    }
+
+    @else {
+      @media only screen and #{inspect(map-get($map, $key))} {
+        @content;
+      }
+    }
+  } @else {
+    @warn "Undefeined points: `#{$map}`";
+  }
+}
