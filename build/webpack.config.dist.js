@@ -10,7 +10,7 @@ module.exports = {
   entry: path.resolve(__dirname, "../index.js"),
   output: {
     path: path.resolve(process.cwd(), "dist"),
-    filename: "bundle.js",
+    filename: "8divine.js",
   },
   module: {
     rules: [
