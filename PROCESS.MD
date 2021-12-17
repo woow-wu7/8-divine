@@ -11,4 +11,6 @@ npm install url-loader file-loader html-loader -D //文件处理
 npm install style-loader css-loader html-webpack-plugin -D // 样式处理 和 html模版处理
 
 npm install cross-env -D
+
+npm install sass sass-loader node-sass -D
 ```
