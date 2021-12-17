@@ -9,7 +9,6 @@ import Row from "./src/row";
 // Vue插件：Vue的插件必须要有install方法，或者本身是一个函数作为install方法，第一个参数是大Vue
 // Vue插件的注册：Vue.use(plugin, options) -> Vue.use 需要在 new Vue() 之前，并且如果多次调用Vue.use()注册同一个插件的话，会自动避免多次注册
 
-
 // 3
 // Vue.component({string} id, {Function | Object} [definition])
 // a.注册组件

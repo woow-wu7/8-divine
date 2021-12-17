@@ -27,13 +27,14 @@
     $currentSelector: #{$currentSelector + & + $modifier-separator + $unit + ","};
   }
   // $modifier-separator: '--';
-  // $namespace: 'el';
+  // $namespace: 'di';
   // $element-separator: '__';
   // $state-prefix: 'is-';
-  //    & --flex,
+  //    &--flex
+  //    .el-row--flex
 
   @at-root {
-    #{$currentSelector} {
+    #{$currentSelector} { // .el-row--flex
       @content;
     }
   }
@@ -44,6 +45,7 @@
     &.#{$state-prefix + $state} {
       @content;
     }
+    // .di-row.is-justify-center
   }
   // 1
   // $state-prefix: 'is-';

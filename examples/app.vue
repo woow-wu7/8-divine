@@ -2,6 +2,11 @@
   <div id="app">
     <img alt="Vue logo" src="./logo.jpg" />
     <h1>DIVINE UI</h1>
+    <br />
+    <dv-row tag="p" :gutter="20">
+      <dv-col :span="12"><div style="background: yellow">dv-col2</div></dv-col>
+      <dv-col :span="6"><div style="background: red">dv-col2</div></dv-col>
+    </dv-row>
   </div>
 </template>
 
@@ -14,13 +19,6 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-
   & > h1 {
     color: red;
   }

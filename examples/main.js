@@ -1,8 +1,11 @@
 import Vue from "vue";
 import App from "./App.vue";
+import DivineUi from "../index.js";
+import "../packages/theme-chalk/index.scss";
 
 Vue.config.productionTip = false;
 
+Vue.use(DivineUi);
 
 new Vue({
   render: (h) => h(App),

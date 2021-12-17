@@ -11,9 +11,9 @@
 //  - Vue.component('my-component', { /* ... */ }) --> 注册组件，传入一个选项对象 (自动调用 Vue.extend) ----> object
 
 export default {
-  name: 'DiRow',
+  name: 'DvRow',
 
-  componentName: 'DiRow',
+  componentName: 'DvRow',
   // componentName
   // - 解释：componentName 是element-ui自己定义的属性
   // - 作用：componentName 是为了在 el-col 中获取到 el-row，因为el-row在嵌套的情况下，需要寻找最新的el-row来配对
@@ -99,10 +99,10 @@ export default {
   render(h) {
     return h(this.tag, { // 第一个参数：this.tag 是传入组件的tag属性，表示自定义该组件的元素标签
       class: [ // 第二个参数：组件的attribute属性，就是传入组件的所有属性
-        'el-row',
+        'dv-row',
         this.justify !== 'start' ? `is-justify-${this.justify}` : '', //  this.justify 默认值是 start
         this.align ? `is-align-${this.align}` : '',
-        { 'el-row--flex': this.type === 'flex' }
+        { 'dv-row--flex': this.type === 'flex' }
       ],
       style: this.style // 计算属性，设置了 marginLeft和marginRight
     }, this.$slots.default); // 第三个参数：表示通过 createElement创建的子节点，单个时string，多个时array

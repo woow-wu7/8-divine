@@ -1,8 +1,8 @@
 import Row from "./packages/row/index.js";
-// import Col from "./packages/col/index.js";
+import Col from "./packages/col/index.js";
 
 // components 存放所有element中的组件
-const components = [Row];
+const components = [Row, Col];
 
 // 每个Vue的插件都有一个 ( install函数 ) 或者 (  本身就是一个函数时直接调用 )
 const install = (Vue) => {
