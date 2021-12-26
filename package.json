@@ -1,12 +1,13 @@
 {
   "name": "8-divine",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "",
-  "main": "index.js",
-  "browser": "index.js",
+  "main": "dist-prod/8divine.js",
+  "browser": "dist-prod/8divine.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dist": "cross-env NODE_ENV=development webpack --config  build/webpack.config.dist.js",
+    "build:dev": "cross-env NODE_ENV=development webpack --config  build/webpack.config.dev.js",
+    "build:prod": "cross-env NODE_ENV=development webpack --config  build/webpack.config.prod.js",
     "dev": "cross-env NODE_ENV=development webpack serve --config build/webpack.config.dev.js",
     "serve": "cross-env NODE_ENV=development webpack serve --config build/webpack.config.dev.js"
   },
