@@ -2,7 +2,7 @@
 
 ### (一) 前值知识
 
-````前值知识开始
+```前值知识开始
 1
 process.cwd() 和 __dirname 的区别
 - process.cwd()
@@ -98,4 +98,3 @@ output webpack中的output和打包上传npm相关的属性
 - npm 打包发布流程 https://juejin.cn/post/6994746118135349262
 - process.cwd() 和 \_\_direname 的区别 https://www.jianshu.com/p/a80c59abd1fb
 - 环境变量区别 https://juejin.cn/post/6844904023791796237#heading-0
-````
