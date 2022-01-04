@@ -1,8 +1,10 @@
 const path = require("path");
-const { merge } = require("webpack-merge");
-const base = require("./webpack.config.base");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
 
-module.exports = merge(base, {
+module.exports = {
   mode: process.env.NODE_ENV, // 这里的值在 package.json 中的 scripts 中的打包命令中通过 cross-env 来指定了
   target: "web",
   entry: path.resolve(__dirname, "../index.js"), // 入口文件就是根目录下的 index.js
@@ -22,4 +24,63 @@ module.exports = merge(base, {
     // libraryTarget: "umd", // 配置以何种方式导出库 ---> 将被 output.library.type 代替
     // umdNamedDefine: true, // ---------------------> 将被 output.library.umdNamedDefine 代替，当使用 libraryTarget: "umd" 时，设置 output.umdNamedDefine 为 true 将命名由 UMD 构建的 AMD 模块。否则将使用一个匿名的 define。
   },
-});
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
+        options: {
+          compilerOptions: {
+            preserveWhitespace: false,
+            // preserveWhitespace boolean
+            // false ---> 如果设置为 false，则标签之间的空格会被忽略；这能够略微提升一点性能但是可能会影响到内联元素的布局
+            // true ----> 这意味着编译好的渲染函数会保留所有 HTML 标签之间的空格
+          },
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: {},
+          },
+        ],
+      },
+      {
+        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              esModule: false, //“[object Module]”问题
+            },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      title: "Development",
+      // favicon: "./public/favicon.ico",
+      template: "public/index.html",
+      filename: "index.html",
+      inject: true,
+    }),
+    // 开启全局的模块热替换(HMR)
+    new webpack.HotModuleReplacementPlugin(),
+  ],
+  optimization: {
+    moduleIds: "named",
+  },
+};
