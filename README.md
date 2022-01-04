@@ -2,7 +2,7 @@
 
 ### (一) 前值知识
 
-```前值知识开始
+```
 1
 process.cwd() 和 __dirname 的区别
 - process.cwd()
@@ -89,9 +89,7 @@ output webpack中的output和打包上传npm相关的属性
 "main": "dist-prod/8divine.js", // 这里我们使用打包后的文件作为入口文件，上传到npm上
 "browser": "dist-prod/8divine.js"
 
-```前值知识结尾
-
-
+```
 
 # 资料
 
