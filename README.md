@@ -65,20 +65,29 @@ output webpack中的output和打包上传npm相关的属性
 5
 环境变量
 - cross-env
-  - 设置的是 ( node的环境 ) 中的环境变量 process.env，也就是说只能在webpack.config.js中访问到
+  - 作用：设置的是 ( node的环境 ) 中的环境变量 process.env，也就是说只能在webpack.config.js中访问到
+  - 例子：`{ scripts: { "test:dev": "cross-env NODE_ENV=development OTHER_ENV=other webpack serve --config build/webpack.config.js" }}`
+  - 语法：cross-env可以设置多个node环境的环境变量，只需要空格隔开就行，如上
+  - 安装：npm install cross-env
 - webpack.DefinePlugin()
   - 设置的是 ( 浏览器环境 ) 中的环境变量，也就是说可以在各个js文件中使用到 webpack.DefinePlugin() 中定义的环境变量
   - 注意点：
     - 如果环境变量的值是一个字符串，那么需要用 JSON.stringify('"string"') 进行转译，所以为了安全保证，将所有数据类型都进行JSON.stringify来处理
     - 如果 webpack.DefinedPlugin({'process.env.NODE_ENV': xxxx})，那么在浏览器环境中也能访问到process.env.NODE_ENV，这就是webpack.config.js中的mode属性需要干的事情
+- mode
+  - mode的作用是，mode的值将会作为 webpack.DefinedPlugin({'process.env.NODE_ENV': JSON.stringify('mode的值')})
+  - development，production，none
 - 总结区别
-  - cross-env定义的环境变量，可以在node环境和浏览器环境同时访问到
-  - webpack.DefinePlugin()只能定义浏览器环境中的环境变来你，即只能在各个模块中去使用，不能在webpack.config.js中使用
-- 实践案例
+  - cross-env定义的环境变量，只能在node环境中被访问到，即 webpack.config.js 中被访问到
+  - webpack.DefinePlugin()定义的环境变量，只能在浏览器环境中被访问到，即只能在各个module模块中去使用，不能在webpack.config.js中使用
+  - mode指定的值，mode的值将会作为 webpack.DefinedPlugin({'process.env.NODE_ENV': JSON.stringify('mode的值')})，从而能在浏览器环境中访问，即module中访问
+- 实践案例1
   - 结果：如果webpack.config.js中的 mode="development"，并且在 build命令时执行的命令 cross-env NODE_ENV="production"，随便在模块js中打印process.env.NODE_ENV输出的是'development'
   - 原因：说明浏览器环境中的process.env.NODE_ENV是通过webpack.config.js 中的 mode属性 设置的，而webpack.config.js中的process.env.NODE_ENV是通过cross-env来设置的
-  - 本质：mode的作用是，mode的值将会作为 webpack.DefinedPlugin({'process.env.NODE_ENV': JSON.stringify('mode的值')})
+  - 本质：mode的作用是，mode的值将会作为 webpack.DefinedPlugin({'process.env.NODE_ENV': JSON.stringify('mode的值')})，从而能在浏览器环境中访问，即module中访问
   - 所以：如何同步？可以将 mode 设置为 ( mode:process.env.NODE_ENV ) 这样 ( node 和 浏览器 中的环境变量就同步了 )，因为 ( cross-env将webpack.config.js中的环境变量设置为了对应的值，而mode=process.env.NODE_ENV，mode有设置了webpack.DefinePlugin()中的process.env.NODE_ENV，用于在浏览器环境中使用)
+- 实践案例2
+  - 设置不同的环境对应的后端服务器地址，详见examples/main.js
 
 
 6

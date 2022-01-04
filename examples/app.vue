@@ -11,6 +11,10 @@
 </template>
 
 <script>
+// 测试别名
+import img1 from "@image/logo.jpg";
+console.log(`img1`, img1);
+
 export default {
   name: "App",
   components: {},

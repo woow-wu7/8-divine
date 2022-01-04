@@ -5,8 +5,8 @@
   "main": "dist-prod/8divine.js",
   "browser": "dist-prod/8divine.js",
   "scripts": {
-    "test:build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
-    "test:dev": "cross-env NODE_ENV=development webpack serve --config build/webpack.config.js",
+    "test:build": "cross-env NODE_ENV=production HOST_ENV=dev webpack --config=build/webpack.config.js --mode=production",
+    "test:dev": "cross-env NODE_ENV=development HOST_ENV=prod webpack serve --config=build/webpack.config.js --mode=development",
     "build:dev": "cross-env NODE_ENV=development webpack --config  build/webpack.config.dev.js",
     "build:prod": "cross-env NODE_ENV=development webpack --config  build/webpack.config.prod.js",
     "dev": "cross-env NODE_ENV=development webpack serve --config build/webpack.config.dev.js",

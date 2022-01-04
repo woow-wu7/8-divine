@@ -4,6 +4,7 @@ const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const webpack = require("webpack");
 
 console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
+console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 // console.log(`NAME`, NAME); // 报错了，说明 webpack.DefinePlugin 中定义的环境变量只能在浏览器环境中访问，即任何一个module中访问
 
 // 前值知识
@@ -66,7 +67,10 @@ console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 //    - 为生命?没有非贪婪模式，因为是0个或者1个，本来就不贪婪
 
 module.exports = {
-  mode: process.env.NODE_ENV, // !!! mode用来指定 webpack.DefinePlugin 中 process.env.NODE_ENV 的值，这样就能在浏览器环境中访问到即module模块中访问到
+  // mode
+  // - mode用来指定 webpack.DefinePlugin 中 process.env.NODE_ENV 的值，这样就能在浏览器环境中访问到即module模块中访问到
+  // - 除了在 webpack.config.js 配置文件中使用，还可以通过 package.json 中的 scripts 标签来执行webpack命令，比如 webpack --mode=development
+  mode: process.env.NODE_ENV,
   entry: {
     main: path.resolve(__dirname, "../examples/main.js"), // __dirname表示当前的文件所在的目录，即 webpack.config.js 文件所在的文件夹
   },
@@ -74,7 +78,10 @@ module.exports = {
     path: path.resolve(__dirname, "../dist"),
     filename: "[name].js",
   },
-  devtool: "eval-source-map", // 不产生source-map文件，但是调试时会显示行数
+  // devtool
+  // eval-source-map：不产生source-map文件，但是调试时会显示行数
+  // source-map：产生source-map文件，显示行列信息
+  devtool: "eval-source-map",
   devServer: {
     static: {
       // 静态资源从之前的 contentBase 改成 static
@@ -84,6 +91,17 @@ module.exports = {
     },
     port: 7777,
     compress: true,
+  },
+  // resolve
+  // resolve.alias 取别名
+  // resolve.extensions 当import省略后缀时，先找.js文件，再找.css文件
+  resolve: {
+    alias: {
+      "@image": path.resolve(__dirname, "../examples"), // @image === 根/examples/
+    },
+    extensions: [".js", ".css", ".less", "*"],
+    // ------------------------------------------------- import时省略后缀时，先找.js文件，再找.css文件
+    // ------------------------------------------------- 注意：'*' 表示所有类型的文件
   },
   module: {
     rules: [
@@ -135,6 +153,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
       NAME: JSON.stringify('"woow_wu7"'),
+      "process.env.HOST_ENV": JSON.stringify(process.env.HOST_ENV),
     }),
   ],
 };
