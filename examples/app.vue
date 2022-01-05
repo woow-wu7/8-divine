@@ -7,6 +7,10 @@
       <dv-col :span="12"><div style="background: yellow">dv-col2</div></dv-col>
       <dv-col :span="6"><div style="background: red">dv-col2</div></dv-col>
     </dv-row>
+
+    <section>
+      <button @click="lazyLoad">懒加载</button>
+    </section>
   </div>
 </template>
 
@@ -20,6 +24,13 @@ export default {
   components: {},
   mounted() {
     console.log(`NAME`, NAME);
+  },
+  methods: {
+    lazyLoad() {
+      import("./utils/index").then((res) =>
+        console.log(`res`, res.getLazyData())
+      );
+    },
   },
 };
 </script>

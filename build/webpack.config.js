@@ -66,13 +66,44 @@ console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 //    - +?：表示某个模式出现1次或多次，匹配时采用非贪婪模式
 //    - 为生命?没有非贪婪模式，因为是0个或者1个，本来就不贪婪
 
+// 2
+// webpack优化
+// 2.1 noParse
+// - module.noParse
+// - 当安装的第三方库没有依赖其他库时，是不需要去寻找解析第三方库的依赖关系，提高构建速度
+// module: {
+//   noParse: /jquery|lodash/, // ------ 不去解析jquery或lodash的依赖关系，因为它们俩都没有依赖其他库，从而提高构建速度
+//   rules: []
+// }
+// 2.2 include 和 exclude
+// - 在 module.rules 中去配置loader时，通过 include 和 exclude 来缩小寻找loader的范围
+// - 因为在寻找loader时默认回去node_modules中去寻找，而我们真正要要loader处理的是我们自己开发的文件时，就可以通过 exclude 来缩小loader匹配的范围
+// 2.3 DllPlugin 和 DllReferencePlugin
+// - DllPlugin
+//    - 主要作用是：单独打包第三方包时，生成一个 json 任务清单，即生成动态链接库
+//    - name path
+// - DllReferencePlugin
+//    - 主要作用是：引用动态连结库
+// 2.3 懒加载
+// - 安装 @babel/plugin-syntax-dynamic-import
+// - import().then() 即import函数返回一个promise，配合webpack的代码分割懒加载不同的chunk
+// 2.4 热更新
+// - webpack.HotModuleReplacementPlugin -----> 负责热更新
+// - webpack.NameModulesPlugin --------------> 打印更新模块的路径
+// - devServer 中设置 hot: true
+// if (module.hot) {
+//   module.hot.accept("./main.js", () => {
+//     require("./main");
+//   });
+// }
+
 module.exports = {
   // mode
   // - mode用来指定 webpack.DefinePlugin 中 process.env.NODE_ENV 的值，这样就能在浏览器环境中访问到即module模块中访问到
   // - 除了在 webpack.config.js 配置文件中使用，还可以通过 package.json 中的 scripts 标签来执行webpack命令，比如 webpack --mode=development
   mode: process.env.NODE_ENV,
   entry: {
-    main: path.resolve(__dirname, "../examples/main.js"), // __dirname表示当前的文件所在的目录，即 webpack.config.js 文件所在的文件夹
+    main: path.resolve(__dirname, "../examples/index.js"), // __dirname表示当前的文件所在的目录，即 webpack.config.js 文件所在的文件夹
   },
   output: {
     path: path.resolve(__dirname, "../dist"),
@@ -91,6 +122,7 @@ module.exports = {
     },
     port: 7777,
     compress: true,
+    hot: true,
   },
   // resolve
   // resolve.alias 取别名
@@ -104,6 +136,7 @@ module.exports = {
     // ------------------------------------------------- 注意：'*' 表示所有类型的文件
   },
   module: {
+    noParse: /jquery|lodash/, // ------ module.noParse 不去解析jquery或lodash的依赖关系，因为它们俩都没有依赖其他库，从而提高构建速度
     rules: [
       {
         test: /\.vue$/,
@@ -113,10 +146,27 @@ module.exports = {
             // extractCSS: true, // 单独抽离css
           },
         },
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: [["@babel/preset-env"]],
+              plugins: [
+                ["@babel/plugin-proposal-decorators", { legacy: true }],
+                ["@babel/plugin-proposal-class-properties"],
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+        exclude: /node_modules/,
       },
       {
         test: /\.s[ac]ss$/i,
@@ -128,6 +178,7 @@ module.exports = {
             options: {},
           },
         ],
+        exclude: /node_modules/,
       },
       {
         test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
@@ -141,6 +192,7 @@ module.exports = {
             },
           },
         ],
+        exclude: /node_modules/,
       },
     ],
   },
@@ -155,5 +207,10 @@ module.exports = {
       NAME: JSON.stringify('"woow_wu7"'),
       "process.env.HOST_ENV": JSON.stringify(process.env.HOST_ENV),
     }),
+    // new webpack.NameModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
   ],
+  optimization: {
+    moduleIds: "named",
+  },
 };

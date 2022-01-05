@@ -3,6 +3,17 @@ import App from "./App.vue";
 import DivineUi from "../index.js";
 import "../packages/theme-chalk/index.scss";
 
+// 测试引入js是否可用
+import { getTimer, TestClass } from "./utils/index";
+
+// 测试 module.noParse()
+import jquery from "jquery";
+import _ from "lodash";
+
+console.log(jquery, _);
+console.log(`getTimer`, getTimer());
+console.log(`TestClass`, new TestClass().att);
+
 // 关于host的设置
 console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 const host = {

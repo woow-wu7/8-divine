@@ -98,6 +98,10 @@ output webpack中的output和打包上传npm相关的属性
 "main": "dist-prod/8divine.js", // 这里我们使用打包后的文件作为入口文件，上传到npm上
 "browser": "dist-prod/8divine.js"
 
+
+7
+说明文档编写
+
 ```
 
 # 资料
