@@ -16,4 +16,12 @@ npm install @babel/plugin-proposal-class-properties -D // ------- 支持解析 c
 npm install @babel/plugin-proposal-decorators // ---------------- class 的装饰器语法，注意两者的顺序 ------------ 在前
 
 npm install cross-env -D
+
+<!--
+npm install markdown-it -D // 解析器
+npm install markdown-it-anchor -D // 生成锚点
+npm install markdown-it-container -D // 创建块级自定义容器的解析插件
+npm install markdown-it-chain -D // 支持链式调用 markdown-it
+npm i -D transliteration // 汉字转拼音
+-->
 ```

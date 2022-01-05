@@ -101,7 +101,10 @@ output webpack中的output和打包上传npm相关的属性
 
 7
 说明文档编写
-
+vuepress // press是出版社的意思
+注意：在webpack5中需要使用 vuepress2
+命令：在项目根目录执行：sudo vuepress dev ./docs
+官网：https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E5%A4%9A%E4%B8%AA%E4%BE%A7%E8%BE%B9%E6%A0%8F
 ```
 
 # 资料
