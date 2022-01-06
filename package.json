@@ -9,8 +9,8 @@
     "test:dev": "cross-env NODE_ENV=development HOST_ENV=prod webpack serve --config=build/webpack.config.js --mode=development",
     "build:dev": "cross-env NODE_ENV=development webpack --config  build/webpack.config.dev.js",
     "build:prod": "cross-env NODE_ENV=development webpack --config  build/webpack.config.prod.js",
-    "dev": "cross-env NODE_ENV=development webpack serve --config build/webpack.config.dev.js",
-    "serve": "cross-env NODE_ENV=development webpack serve --config build/webpack.config.dev.js",
+    "dev": "cross-env NODE_ENV=development HOST_ENV=dev webpack serve --config build/webpack.config.dev.js",
+    "serve": "cnpm run dev",
     "docs:dev": "sudo vuepress dev ./docs",
     "docs:build": "vuepress build docs"
   },

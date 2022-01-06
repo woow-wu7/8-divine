@@ -14,6 +14,4 @@ const install = (Vue) => {
   });
 };
 
-export default {
-  install,
-};
+export default install;
