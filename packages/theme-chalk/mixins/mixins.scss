@@ -12,12 +12,16 @@
   }
   // $B
   // 1. 这里的 $namespace = el
-  // 2. $block 是参数，表示BEM中的block
+  // 2. 定义 $namespace 的文件在：theme-chalk/mixins/config.scss 中
+  // 3. $block 是参数，表示BEM中的block
 
   // @content 是 @include 花括号中的值
+  // 注意三者的关系：@mixin @include @content
 
   // #{$B} 是插值语句
   // - 插值语句可以在 选择器 或者 属性名 中使用 变量
+
+  // !global 表示提升为全局变量
 }
 
 @mixin m($modifier) {
@@ -33,8 +37,13 @@
   //    &--flex
   //    .el-row--flex
 
+  // $currentSelector变量的初始值 ‘’ -> 会在循环中被覆盖掉
+  // - 例如
+  //  - $currentSelector: "";
+  //  - $currentSelector: .el-row-flex
+
   @at-root {
-    #{$currentSelector} { // .el-row--flex
+    #{$currentSelector} { // 例如 .el-row--flex
       @content;
     }
   }
