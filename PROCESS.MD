@@ -54,15 +54,22 @@ npm i -D transliteration // 汉字转拼音
 └── test
 ```
 
-### (3) 打包
+### (3) 打包 和 测试
 
 ```
-1. 执行命令 build:prod 进行webpack打包
+1. 打包
+- 执行命令 cnpm run build:prod 进行webpack打包
 - "build:prod": "cross-env NODE_ENV=development webpack --config  build/webpack.config.prod.js"
 - 入口：index.js
   - 作用：主要做的事情就是引入 8-divine 组件库中的所有组件，并声明install方法，即作为Vue的插件，完成组件注册
   - 使用：在 package.json 中 main 配置项指定了项目入口是 dist-prod/8divine.js，其实就是 index.js 为入口的所有依赖代码
 - 出口：dist-prod
+
+
+2. 测试
+- 执行命令 cnpm run dev
+  - cnpm run dev ---------- 加载的是 webpack.config.dev.js ---> 指定的入口是 examples/main.js
+  - cnpm run build:prod --- 加载的是 webpack.config.prod.js --> 指定的入口是：index.js
 ```
 
 ### (4) npm 发布包相关
@@ -145,6 +152,6 @@ npm version patch --no-git-tag-version
 
 - npm 打包发布流程 https://juejin.cn/post/6994746118135349262
 - npm 发布相关 https://blog.51cto.com/u_15328720/3401308
-- process.cwd() 和 \_\_direname 的区别 https://www.jianshu.com/p/a80c59abd1fb
+- process.cwd() 和 `__direname` 的区别 https://www.jianshu.com/p/a80c59abd1fb
 - 环境变量区别 https://juejin.cn/post/6844904023791796237#heading-0
 - 构建过程 https://juejin.cn/post/6950905030635421710
