@@ -78,6 +78,7 @@ module.exports = merge(base, {
   //  4. 在哪些地方可以使用到 hash chunkhash contenthash
   //      - 凡是在 webpack.config.js 中具有 ( filename ) 属性的地方都可以使用 ( 占位符的方式 [hash] ) 使用到这几种hash
 
+  // 真正打包 output npm 相关的配置文件在：webpack.config.prod.js
   output: {
     filename: "[name].[hash].js",
     path: path.resolve(process.cwd(), "dist"), // 等价于 path: path.resolve(__dirname, "../dist")

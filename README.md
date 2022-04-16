@@ -1,5 +1,7 @@
 # 8-divine
 
+![8-divine](static/divine.jpg)
+
 # (一) 相关仓库
 
 - [element-ui 源码分析-仓库](https://github.com/woow-wu7/8-element-source-code-analysis)
@@ -244,9 +246,3 @@ export function initUse(Vue: GlobalAPI) {
   };
 }
 ```
-
-# 资料
-
-- npm 打包发布流程 https://juejin.cn/post/6994746118135349262
-- process.cwd() 和 \_\_direname 的区别 https://www.jianshu.com/p/a80c59abd1fb
-- 环境变量区别 https://juejin.cn/post/6844904023791796237#heading-0

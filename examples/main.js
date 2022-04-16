@@ -43,7 +43,7 @@ Vue.use(DivineUi);
 // Vue.use(plugin)
 // - 作用：安装插件
 // - 注意点：Vue.use() 必须在 new Vue() 之前
-// - 源码和详解：
+// - 源码和详解：详见 README.md
 
 new Vue({
   render: (h) => h(App),

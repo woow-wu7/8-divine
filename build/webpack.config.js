@@ -117,6 +117,7 @@ module.exports = {
   entry: {
     main: path.resolve(__dirname, "../examples/index.js"), // __dirname表示当前的文件所在的目录，即 webpack.config.js 文件所在的文件夹
   },
+  // 真正打包 output npm 相关的配置文件在：webpack.config.prod.js
   output: {
     path: path.resolve(__dirname, "../dist"),
     filename: "[name].js",

@@ -2,6 +2,7 @@
   "name": "8-divine",
   "version": "1.2.0",
   "description": "",
+  "#main": "指定了项目的入口文件，即使用组件库时 import xxx from 'xxxx' 使用的文件，一般是打包后的入口文件",
   "main": "dist-prod/8divine.js",
   "browser": "dist-prod/8divine.js",
   "scripts": {
@@ -14,7 +15,13 @@
     "docs:dev": "sudo vuepress dev ./docs",
     "docs:build": "vuepress build docs"
   },
-  "keywords": [],
+  "#keywords": "关键字数组，可以通过关键字来搜索npm包",
+  "keywords": [
+    "8-divine",
+    "divine"
+  ],
+  "#homepage": "项目官网url",
+  "homepage": "https://github.com/woow-wu7/8-divine",
   "author": "",
   "license": "ISC",
   "devDependencies": {
