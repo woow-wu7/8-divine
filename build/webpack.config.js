@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const webpack = require("webpack");
 
-console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
+console.log(`process.env.NODE_ENV`, process.env.NODE_ENV); // process.env.NODE_ENV 作用就是访问 node环境的 NODE_ENV 环境变量
 console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 // console.log(`NAME`, NAME); // 报错了，说明 webpack.DefinePlugin 中定义的环境变量只能在浏览器环境中访问，即任何一个module中访问
 
@@ -30,8 +30,8 @@ console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 //    - 我们调整一下顺序：
 //      点字符.
 //      位置字符^$
-//      量词符*?+
 //      选择符｜
+//      量词符*?+
 //      () [ { \\
 // - 预定义模式
 //    - \d [0-9] digit
@@ -64,7 +64,7 @@ console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 //      - s.match(/a+?/) // ["a"]
 //    - *?：表示某个模式出现0次或多次，匹配时采用非贪婪模式
 //    - +?：表示某个模式出现1次或多次，匹配时采用非贪婪模式
-//    - 为生命?没有非贪婪模式，因为是0个或者1个，本来就不贪婪
+//    - 为什么 ? 没有非贪婪模式，因为是0个或者1个，本来就不贪婪
 
 // 2
 // webpack优化
@@ -98,9 +98,21 @@ console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 // }
 
 module.exports = {
+  // 1
   // mode
-  // - mode用来指定 webpack.DefinePlugin 中 process.env.NODE_ENV 的值，这样就能在浏览器环境中访问到即module模块中访问到
+  // 指定 浏览器环境中的环境变量，即不同的module模块中访问到
+  // - mode用来指定 webpack.DefinePlugin 中 process.env.NODE_ENV 的值，这样就能在浏览器环境中访问到，即module模块中访问到
   // - 除了在 webpack.config.js 配置文件中使用，还可以通过 package.json 中的 scripts 标签来执行webpack命令，比如 webpack --mode=development
+  // - mode指定的值，mode的值将会作为 webpack.DefinedPlugin({'process.env.NODE_ENV': JSON.stringify('mode的值')})，从而能在浏览器环境中访问NODE_ENV，即module中访问
+
+  // 2
+  // 浏览器和node环境，都可以通过 ( process.env.环境变量名 ) 来访问环境变量
+
+  // 3
+  // 浏览器中的环境变量有多少种指定的方式 ( 两种 )
+  // - mode 指定
+  // - webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify('NODE_ENV的值') })
+
   mode: process.env.NODE_ENV,
   entry: {
     main: path.resolve(__dirname, "../examples/index.js"), // __dirname表示当前的文件所在的目录，即 webpack.config.js 文件所在的文件夹
@@ -118,7 +130,7 @@ module.exports = {
       // 静态资源从之前的 contentBase 改成 static
       // path.resolve()生成一个绝对路径，__dirname返回当前代码所在的文件夹
       // 这里static.directory 表示将dist文件夹中的文件打包起一个服务
-      directory: path.resolve(__dirname, "dist"),
+      directory: path.resolve(__dirname, "../dist"),
     },
     port: 7777,
     compress: true,
