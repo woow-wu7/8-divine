@@ -13,7 +13,9 @@
     "dev": "cross-env NODE_ENV=development HOST_ENV=dev webpack serve --config build/webpack.config.dev.js",
     "serve": "cnpm run dev",
     "docs:dev": "sudo vuepress dev ./docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "dev:development": "cross-env NODE_ENV=development webpack --config build/webpack.config.js",
+    "dev:production": "cross-env NODE_ENV=production webpack --config build/webpack.config.js"
   },
   "#keywords": "关键字数组，可以通过关键字来搜索npm包",
   "keywords": [

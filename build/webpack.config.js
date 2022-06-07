@@ -3,8 +3,24 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const webpack = require("webpack");
 
-console.log(`process.env.NODE_ENV`, process.env.NODE_ENV); // process.env.NODE_ENV 作用就是访问 node环境的 NODE_ENV 环境变量
+// 1
+// cross-env
+// - 在 package.json 中设置了 "dev:development": "cross-env NODE_ENV=development webpack --config build/webpack.config.js"
+// - "cross-env NODE_ENV=development" -> 表示的是设置 NODE 环境中的 process.env.NODE_ENV 环境变量的值为 development
+// - process.env.NODE_ENV 作用就是访问 node环境的 NODE_ENV 环境变量
+console.log(`process.env.NODE_ENV`, process.env.NODE_ENV);
 console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
+
+// 2
+// 真实项目的环境变量的设置
+// (1) 现在 package.json 中通过 cross-env 插件设置 ( NODE ) 环境变量
+//    - cross-env NODE_ENV=development
+//    - 在node环境中可以通过 process.env.NODE_ENV 来获取
+// (2) 在 webpack.config.js 中通过 webpack.DefinePlugin 将 ( 浏览器 ) 环境变量设置为 第一步设置的值
+//    - webpack.config.js 中的 webpack.definePlugin 中设置 "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+//    - 表示将浏览器环境中的 process.env.NODE_ENV 设置为 node环境中的 process.env.NODE_ENV
+// (3) 这样 浏览器环境 和 node 环境中的值就同步了，都是为 cross-env 指定的值
+
 // console.log(`NAME`, NAME); // 报错了，说明 webpack.DefinePlugin 中定义的环境变量只能在浏览器环境中访问，即任何一个module中访问
 
 // 前值知识
