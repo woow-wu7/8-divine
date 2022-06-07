@@ -13,6 +13,7 @@ console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 
 // 2
 // 真实项目的环境变量的设置
+// webpack3
 // (1) 现在 package.json 中通过 cross-env 插件设置 ( NODE ) 环境变量
 //    - cross-env NODE_ENV=development
 //    - 在node环境中可以通过 process.env.NODE_ENV 来获取
@@ -20,6 +21,10 @@ console.log(`process.env.HOST_ENV`, process.env.HOST_ENV);
 //    - webpack.config.js 中的 webpack.definePlugin 中设置 "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
 //    - 表示将浏览器环境中的 process.env.NODE_ENV 设置为 node环境中的 process.env.NODE_ENV
 // (3) 这样 浏览器环境 和 node 环境中的值就同步了，都是为 cross-env 指定的值
+// webpack4
+// (1) webpack4中可以直接设置：mode 属性
+//    - mode:development
+//    - 相当于：webpack.definedPlugin({'process.env.NODE_ENV': JSON.stringify('development')})
 
 // console.log(`NAME`, NAME); // 报错了，说明 webpack.DefinePlugin 中定义的环境变量只能在浏览器环境中访问，即任何一个module中访问
 
@@ -130,6 +135,7 @@ module.exports = {
   // - webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify('NODE_ENV的值') })
 
   mode: process.env.NODE_ENV,
+
   entry: {
     main: path.resolve(__dirname, "../examples/index.js"), // __dirname表示当前的文件所在的目录，即 webpack.config.js 文件所在的文件夹
   },
