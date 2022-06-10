@@ -191,8 +191,9 @@ module.exports = {
             options: {
               presets: [["@babel/preset-env"]],
               plugins: [
-                ["@babel/plugin-proposal-decorators", { legacy: true }],
-                ["@babel/plugin-proposal-class-properties"],
+                ["@babel/plugin-proposal-decorators", { legacy: true }], // 装饰器语法
+                ["@babel/plugin-proposal-class-properties"], // 支持 class
+                // proposal 是提案的意思
               ],
             },
           },

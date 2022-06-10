@@ -15,8 +15,8 @@ npm install style-loader css-loader -D // 样式处理
 npm install sass sass-loader node-sass -D // sass相关
 
 npm install babel-loader @babel/core @babel/preset-env -D // babel可以把es6转成es5
-npm install @babel/plugin-proposal-class-properties -D // -- 支持解析 class 语法，proposal是提案的意思 - 在后
 npm install @babel/plugin-proposal-decorators // ----------- class 的装饰器语法，注意两者的顺序 -------- 在前
+npm install @babel/plugin-proposal-class-properties -D // -- 支持解析 class 语法，proposal是提案的意思 - 在后
 
 npm install cross-env -D
 
@@ -80,7 +80,7 @@ package.json
 ---
 
 main
-- 指定了项目的入口文件
+- 指定了项目的入口文件，该文件就是项目打包后的文件
 - 即使用组件库时 import xxx from 'xxxx' 使用的文件
 
 keywords
@@ -88,6 +88,10 @@ keywords
 
 homepage
 - 项目的官网链接url地址
+
+version
+- 版本号
+- npm publish 必须是修改过后的最新的版本号
 ```
 
 ```
@@ -119,7 +123,7 @@ npm 命令
 npm pack
 - 生成一个压缩文件 ( name-version.tgz )
 - 注意：npm pack 命令是在整个项目的根目录中输入的命令，因为package.json在根目录
-- 使用：npm install 路径\xx-xx.tgz
+- 使用压缩文件：npm install 路径\xx-xx.tgz
 
 
 ---
@@ -130,9 +134,12 @@ npm pack
 
 2. 非第一次发包
 npm login
+- 会让输入 用户名，密码，邮件
+- 以及 邮件收到的 OTP code 验证码
 
 3. 发布
 npm publish
+- 注意：每次发布记得更改组件的版本号
 
 4. 撤销发布的包
 npm unpublish
